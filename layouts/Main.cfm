@@ -72,14 +72,7 @@
 		</p>
 	</footer>
 
-	<script>
-	$(function() {
-		// activate all drop downs
-		$('.dropdown-toggle').dropdown();
-		// Tooltips
-		$("[rel=tooltip]").tooltip();
-	})
-	</script>
+	<script src="includes/js/app.js" async></script>
 </body>
 </html>
 </cfoutput>
