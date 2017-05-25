@@ -1,4 +1,5 @@
-var cacheName = 'pwa-marketing-site-6';
+var cacheName = 'pwa-marketing-site-7';
+var imageCacheName = 'flickr-3';
 var filesToCache = [
     '/',
     '/index.cfm',
@@ -35,7 +36,7 @@ self.addEventListener('activate', function(e) {
     e.waitUntil(
         caches.keys().then(function(keyList) {
             return Promise.all(keyList.map(function(key) {
-                if (key !== cacheName) {
+                if (key !== cacheName && key !== imageCacheName) {
                     console.log('[ServiceWorker] Removing old cache', key);
 
                     return caches.delete(key);
@@ -50,9 +51,23 @@ self.addEventListener('activate', function(e) {
 self.addEventListener('fetch', function(e) {
     console.log('[Service Worker] Fetch', e.request.url);
 
-    e.respondWith(
-        caches.match(e.request).then(function(response) {
-            return response || fetch(e.request);
-        })
-    );
+    if (e.request.url.indexOf('flickr') > -1) {
+        // Cache, then network: https://jakearchibald.com/2014/offline-cookbook/#cache-then-network
+        e.respondWith(
+            caches.open(imageCacheName).then(function(cache) {
+                return fetch(e.request).then(function(response) {
+                    cache.put(e.request.url, response.clone());
+
+                    return response;
+                });
+            })
+        );
+    } else {
+        // Cache falling back to network: https://jakearchibald.com/2014/offline-cookbook/#cache-falling-back-to-network
+        e.respondWith(
+            caches.match(e.request).then(function(response) {
+                return response || fetch(e.request);
+            })
+        );
+    }
 });
