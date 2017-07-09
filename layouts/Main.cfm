@@ -39,13 +39,6 @@
 		<div class="container-fluid">
 			<!---Brand --->
 			<div class="navbar-header">
-				<!---Responsive Design --->
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="##navbar-collapse">
-					<span class="sr-only">Toggle navigation</span>
-				    <span class="icon-bar"></span>
-				    <span class="icon-bar"></span>
-				    <span class="icon-bar"></span>
-				</button>
 				<!---Branding --->
 				<a class="navbar-brand" href="#event.buildLink('')#"><strong>Home</strong></a>
 				<a class="navbar-brand" href="#event.buildLink('products')#"><strong>Our Products</strong></a>
