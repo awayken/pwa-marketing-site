@@ -1,5 +1,5 @@
-var cacheName = 'pwa-marketing-site-7';
-var imageCacheName = 'flickr-3';
+var cacheName = 'pwa-marketing-site-10';
+var imageCacheName = 'flickr-5';
 var filesToCache = [
     '/',
     '/index.cfm',
@@ -49,25 +49,39 @@ self.addEventListener('activate', function(e) {
 });
 
 self.addEventListener('fetch', function(e) {
-    console.log('[Service Worker] Fetch', e.request.url);
+    var requestURL = e.request.url;
 
-    if (e.request.url.indexOf('flickr') > -1) {
-        // Cache, then network: https://jakearchibald.com/2014/offline-cookbook/#cache-then-network
-        e.respondWith(
-            caches.open(imageCacheName).then(function(cache) {
-                return fetch(e.request).then(function(response) {
-                    cache.put(e.request.url, response.clone());
+    e.respondWith(
+        caches.match(e.request).then(function(response) {
+            // If we found our response in cache, return it
+            if (response) {
+                console.log('[Service Worker] Fetch', requestURL, 'from cache.');
 
-                    return response;
-                });
-            })
-        );
-    } else {
-        // Cache falling back to network: https://jakearchibald.com/2014/offline-cookbook/#cache-falling-back-to-network
-        e.respondWith(
-            caches.match(e.request).then(function(response) {
-                return response || fetch(e.request);
-            })
-        );
-    }
+                return response;
+            }
+
+            // Clone our request before we consume it
+            var requestClone = e.request.clone();
+
+            // Fetch the request
+            return fetch(e.request).then(function(response) {
+                // If the response is valid and from Flickr
+                if (response && requestURL.indexOf('flickr') > -1) {
+                    // Clone our response before we consume it
+                    var responseClone = response.clone();
+
+                    // Open our image cache
+                    caches.open(imageCacheName).then(function(cache) {
+                        // Cache the response for the request
+                        cache.put(requestClone, responseClone);
+                    });
+                }
+
+                console.log('[Service Worker] Fetch', requestURL, 'from network.');
+
+                // Return the response
+                return response;
+            });
+        })
+    );
 });
