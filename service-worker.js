@@ -1,4 +1,4 @@
-var cacheName = 'pwa-marketing-site-10';
+var cacheName = 'pwa-marketing-site-12';
 var imageCacheName = 'flickr-5';
 var filesToCache = [
     '/',
@@ -16,7 +16,16 @@ var filesToCache = [
     '/includes/fonts/glyphicons-halflings-regular.svg',
     '/includes/fonts/glyphicons-halflings-regular.ttf',
     '/includes/fonts/glyphicons-halflings-regular.woff',
-    '/includes/fonts/glyphicons-halflings-regular.woff2'
+    '/includes/fonts/glyphicons-halflings-regular.woff2',
+    '/android-chrome-192x192.png',
+    '/android-chrome-512x512.png',
+    '/apple-touch-icon.png',
+    '/browserconfig.xml',
+    '/favicon-16x16.png',
+    '/favicon-32x32.png',
+    '/favicon.ico',
+    '/manifest.json',
+    '/mstile-150x150.png'
 ];
 
 self.addEventListener('install', function(e) {
