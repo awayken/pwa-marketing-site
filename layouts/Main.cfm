@@ -6,6 +6,7 @@
 	<title>Welcome to Coldbox!</title>
 	<meta name="description" content="ColdBox Application Template">
     <meta name="author" content="Ortus Solutions, Corp">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!---Base URL --->
 	<base href="#event.getHTMLBaseURL()#" />
 	<!---css --->
