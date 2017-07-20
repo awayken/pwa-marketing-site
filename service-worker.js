@@ -1,4 +1,4 @@
-var cacheName = 'pwa-marketing-site-12';
+var cacheName = 'pwa-marketing-site-15';
 var imageCacheName = 'flickr-5';
 var filesToCache = [
     '/',
@@ -55,6 +55,10 @@ self.addEventListener('activate', function(e) {
     );
 
     return self.clients.claim();
+});
+
+self.addEventListener('message', function(e) {
+    console.log('Message data:', e.data);
 });
 
 self.addEventListener('fetch', function(e) {

@@ -18,5 +18,13 @@
 
 <section>
 	<p>Explore our website using the navigation above.</p>
+
+	<form id="messageform" name="messageform" action="">
+		<label>
+			Message Text
+			<input name="message" id="message" value="">
+		</label>
+		<button type="submit">Send Message</button>
+	</form>
 </section>
 </cfoutput>
