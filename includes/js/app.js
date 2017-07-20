@@ -35,6 +35,8 @@
             var message = messageBox.value;
             console.log('Message to send:', message);
             sendMessage( message );
+            messageBox.value = '';
+            messageBox.focus();
         };
     }
 })();
